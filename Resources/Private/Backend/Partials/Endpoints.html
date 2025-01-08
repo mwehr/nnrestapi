@@ -1,0 +1,132 @@
+
+<div class="endpoints">	
+
+	<div class="mb-3">
+		<h2>Endpoints</h2>
+		<p>The list of all registered endpoints. If you add your own Api endpoints, they will automatically appear in this list.</p>
+	</div>
+
+	<div class="filter mb-4 d-flex align-items-center">
+		<div class="form-check pl-4">
+			<input class="form-check-input" type="checkbox" value="" id="hide-nnrestapi">
+			<label class="form-check-label" for="hide-nnrestapi">
+				Hide nnrestapi
+			</label>
+		</div>
+		<div class="col-4 pe-0 ms-auto">
+			<div class="input-group">
+				<input type="text" class="search form-control" />
+				<div class="input-group-append">
+					<span class="input-group-text h-100">
+						<i class="search-icon fas fa-search"></i>
+						<i class="clear-icon fas fa-times"></i>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<f:for each="{endpoints}" key="reqType" as="endpointsForReqType">
+		<f:for each="{endpointsForReqType}" key="identifier" as="registrations">
+
+			<f:for each="{registrations}" key="extname" as="config">
+
+				{f:if(condition:config.route, then:'{absApiUrlPrefix}{config.route.path}', else:'{rest:uri.api(controller:config.controller, action:config.action, ext:extname)}')->f:variable(name:'uri')}
+
+				{f:variable(name:'relUri', value:'{uri->nnt3:format.replace(from:urlBase, to:\'\')}')}
+
+				{uri->nnt3:format.replace(from:urlBase, to:'')->f:format.htmlspecialchars()->f:variable(name:'uriShort')}
+
+				{f:if(condition:config.label, then:config.label, else:uriShort)->f:variable(name:'title')}
+
+				<div class="request mb-2 ext-{extname}" 
+					data-uid="{reqType}/{relUri}"
+					data-reqtype="{reqType}" 
+					data-requrl="{relUri}"
+					data-example="{config.example}">
+
+					<rest:widget.accordion reqType="{reqType}" title="{title}" class="nice-thing" config="{config}">
+
+						{config.comment->f:format.raw()}
+
+						<f:if condition="{config.example}">
+							<div class="example mb-4">
+								<b>Example data:</b>
+								<nnt3:format.code lang="json">					
+									{config.example->f:format.raw()}
+								</nnt3:format.code>		
+							</div>
+						</f:if>
+
+						<div class="classinfos mb-2">
+							<b>Class infos:</b>
+							<table class="table mt-2 table-bordered table-sm">
+								<tr>
+									<td>Route:</td>
+									<td>{uriShort}</td>
+								</tr>
+								<tr>
+									<td>Access:</td>
+									<td>{config.access->rest:format.access()}</td>
+								</tr>
+								<tr>
+									<td>Target:</td>
+									<td><code>{config.class}->{config.method}()</code></td>
+								</tr>
+								<f:if condition="{config.distiller}">
+									<tr>
+										<td>Distiller:</td>
+										<td><code>{config.distiller}</code></td>
+									</tr>	
+								</f:if>
+								<f:if condition="{config.includeHidden}">
+									<tr>
+										<td>IncludeHidden:</td>
+										<td><code>true</code></td>
+									</tr>	
+								</f:if>
+								<f:if condition="{config.uploadConfig}">
+									<tr>
+										<td>Upload-Config:</td>
+										<td><code>{config.uploadConfig}</code></td>
+									</tr>	
+								</f:if>
+							</table>
+						</div>
+
+					</rest:widget.accordion>
+			
+				</div>
+			</f:for>
+		</f:for>
+	</f:for>
+
+	<f:if condition="{extConf.disableDefaultEndpoints}">
+		<f:then>
+			<p class="py-3">
+				<i class="fas fa-exclamation-circle"></i>
+				The default endpoints from nnrestapi were disabled in the Extension Manager.
+			</p>
+		</f:then>
+		<f:else>
+			<p class="py-3">
+				You can disable the default endpoints from nnrestapi in the Extension Manager.
+			</p>
+		</f:else>
+	</f:if>
+
+	<f:if condition="!{extConf.disableDonationWarning}">
+		<div class="alert alert-warning">
+			<i class="fas fa-coffee me-2 text-danger"></i>
+			<b>The coffee cups of our developers are almost empty.</b>
+			<p class="m-0">
+				The nnrest-extension has been installed in &gt; 4.000 TYPO3 projects. We've had a total of <b>3 (three) donations</b> so far.<br>
+				If you like this extension and it saved you time, please help us keep it alive by 
+				<a target="_blank" href="https://docs.typo3.org/p/nng/nnrestapi/1.0/en-us/About/About/50_support.html">
+					refilling a cup.
+				</a>
+			</p>
+		</div>
+	</f:if>
+	
+</div>

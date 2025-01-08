@@ -1,0 +1,618 @@
+.nnrestapi-be-module .form-control {
+	font-size: 0.9rem;
+}
+
+.nnrestapi-be-module {
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 0.9rem;
+}
+
+.nnrestapi-be-module.scrollable {
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+.nnrestapi-be-module a {
+    text-decoration: none;
+}
+
+.nnrestapi-be-module .nav-pills {
+    background: linear-gradient(45deg, #e8e8e8, #f4f4f4);
+    font-size: 0.9rem;
+}
+
+.nnrestapi-be-module .nav-pills .nav-link {
+    border-radius: 0;
+    padding: 0.5rem 1rem 0.3rem 1rem;
+    cursor: pointer;
+    color: inherit;
+}
+
+.nnrestapi-be-module .nav-pills .nav-link.active {
+    color: #000;
+    background: #ddd;
+    border-bottom: 0.2rem solid #7090af;
+}
+
+.nnrestapi-be-module .nav-pills .nav-item a:hover {
+    background: #ddd;
+} 
+
+.nnrestapi-be-module .nav-pills .nav-link.active i {
+    color: #708faf;
+} 
+
+.nnrestapi-be-module .form-control, .nav-link, .btn {
+    border-radius: 0;
+}
+
+.nnrestapi-be-module .request-form .form-control {
+    height: 100%;
+}
+
+.nnrestapi-be-module .form-control:focus {
+    box-shadow: none;
+    border-color: #ced4da;
+}
+
+.nnrestapi-be-module h1 {
+    font-size: 2rem;
+}
+
+.nnrestapi-be-module h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.nnrestapi-be-module h3 {
+    font-size: 1rem;
+     margin: 0 0 0 0;
+}
+
+.nnrestapi-be-module .donate h1 {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.nnrestapi-be-module .donate hr {
+    margin: 30px 0;
+}
+
+.nnrestapi-be-module .donate p a {
+    color: #ff6600;
+    font-weight: 600;
+}
+
+.nnrestapi-be-module .donate p b {
+    font-weight: 600;
+}
+
+.nnrestapi-be-module .donate .btn {
+    font-size: 1rem;
+    border-radius: 20px;
+    padding: 5px 20px;
+}
+
+.nnrestapi-be-module .donate .btn i {
+    color: #fff;
+}
+
+.nnrestapi-be-module .donate-tab i {
+    animation: 10s pulse 5s infinite; 
+}
+
+.nnrestapi-be-module .nnrestapi-errors {
+    max-width: 900px;
+}
+
+.nnrestapi-be-module .nnrestapi-errors p {
+    margin: 0;
+}
+
+.nnrestapi-be-module .nnrestapi-errors i {
+    color: #842029;
+}
+
+.nnrestapi-be-module .nnrestapi-errors pre {
+    margin-top: 0.5rem;
+    background: #000;
+}
+.nnrestapi-be-module .nnrestapi-errors code {
+    margin-top: 0.5rem;
+    background: transparent;
+    color: #fff;
+}
+
+.nnrestapi-be-module .card-body h1 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.nnrestapi-be-module .card-body h2 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.nnrestapi-be-module .card-header i {
+    color: #aaa;
+}
+
+.nnrestapi-be-module .card .access-icon {
+    min-width: 45px;
+    display: inline-block;
+    text-align: center;
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+.nnrestapi-be-module .access-icon.public {
+    color: #69ad8d;
+}
+
+.nnrestapi-be-module.access-list code {
+    padding: 0;
+    margin: 0;
+}
+
+.nnrestapi-be-module #hide-nnrestapi {
+    margin-left: -1.5em;
+}
+
+.nnrestapi-be-module .hide-nnrestapi .ext-nnrestapi {
+    display: none;
+}
+
+.nnrestapi-be-module .form-control.search {
+    border-radius: 15px 0 0 15px;
+    border-right: none;
+    padding-left: 15px;
+    height: 30px;
+    font-size: 0.9rem;
+}
+
+.nnrestapi-be-module .search ~ .input-group-append {
+    border-left: none;
+}
+
+.nnrestapi-be-module .search ~ .input-group-append .input-group-text {
+    border-radius: 0 15px 15px 0;
+    background: transparent;
+}
+
+.nnrestapi-be-module .clear-icon {
+    display: none;
+    cursor: pointer;
+}
+
+.nnrestapi-be-module .testbed {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    width: 600px;
+    background: #2d2d2d;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.nnrestapi-be-module .reqtype {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    color: #fff;
+    flex: 1 1 90px;
+    padding: 0.1rem 0.5rem;
+    border: none;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.nnrestapi-be-module .testbed .btn {
+    font-size: 1rem;
+}
+
+.nnrestapi-be-module .testbed label {
+    padding: 0.5rem 0;
+    min-width: 150px;
+    margin: 0;
+    color: #000;
+}
+
+.nnrestapi-be-module .testbed .tab-pane {
+    background: #ededed;
+}
+
+.nnrestapi-be-module .testbed .nav-link {
+    margin: 0;
+    color: #000 !important;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.8rem;
+    border-radius: 0;
+    padding: 10px 15px 6px 15px;
+}
+
+.nnrestapi-be-module .testbed .nav-tabs > li {
+    margin-left: 0;
+}
+
+
+.nnrestapi-be-module .files {
+    color: #000;
+}
+
+.nnrestapi-be-module input[type=file] {
+    display: block;
+    border: 1px solid #ced4da;
+    margin: 0;
+    min-height: 100%;
+}
+
+.nnrestapi-be-module main {
+    width: calc(100vw - 650px);
+}
+
+.nnrestapi-be-module .compose-body textarea {
+    min-height: 200px;
+    padding: 1rem;
+}
+
+.nnrestapi-be-module .details span {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    transition: 0.1s all;
+}
+
+.nnrestapi-be-module .path:hover {
+    opacity: 0.7;
+}
+
+.nnrestapi-be-module .details:hover span {
+    opacity: 1;
+} 
+
+.nnrestapi-be-module .rescode {
+    background: #444;
+    border-bottom: 1px solid #555;
+    padding: .5rem 1rem;
+}
+
+.nnrestapi-be-module .exception {
+    display: none;
+}
+
+.nnrestapi-be-module .show-exception .exception {
+    display: block;
+}
+
+.nnrestapi-be-module .show-exception .result {
+    display: none;
+}
+
+.nnrestapi-be-module .result-panel,
+.nnrestapi-be-module .result-panel pre {
+    background: #000;
+}
+
+.nnrestapi-be-module .result-panel .toolbar {
+    display: none;
+}
+
+.nnrestapi-be-module .result-panel .code-toolbar {
+    height: 100%;
+}
+
+.nnrestapi-be-module .reqbody {
+    font-family: Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;
+    font-size: 0.9rem;
+}
+
+.nnrestapi-be-module .resbody {
+    min-height: 250px;
+    overflow-y: auto;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nnrestapi-be-module .card-header {
+    background: linear-gradient(45deg, #e8e8e8, #f4f4f4);
+}
+.nnrestapi-be-module .card-header h2 {
+    font-size: 0.9rem;
+}
+.nnrestapi-be-module .card-header a {
+    display: flex !important;
+    align-items: center;
+}
+
+.nnrestapi-be-module .example .code-toolbar {
+    margin-top: 0.5rem;
+}
+
+.nnrestapi-be-module .req-type:before {
+    content: '';
+    min-width: 50px;
+    text-transform: uppercase;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.8rem;
+    line-height: 1;
+    font-style: normal;
+    border-radius: 2px;
+    background: #f5f5f5;
+    padding: 7px 5px;
+    display: inline-flex;
+    margin: 0 10px 0 0;
+}
+
+.nnrestapi-be-module .endpoints {
+    font-size: 0.9rem;
+}
+
+.nnrestapi-be-module .endpoints .req-type-get:before {
+    content: 'get';
+    background: #60aefe;
+}
+
+.nnrestapi-be-module .endpoints .req-type-post:before {
+    content: 'post';
+    background: #4acb91;
+}
+
+.nnrestapi-be-module .endpoints .req-type-put:before {
+    content: 'put';
+    background: #fba12f;
+}
+
+.nnrestapi-be-module .endpoints .req-type-patch:before {
+    content: 'patch';
+    background: #4fe2c2;
+}
+.nnrestapi-be-module .endpoints .req-type-delete:before {
+    content: 'del';
+    background: #f93f3e;
+}
+.nnrestapi-be-module .req-type-get .reqtype {
+    background: #60aefe;
+}
+.nnrestapi-be-module .req-type-post .reqtype {
+    background: #4acb91;
+}
+.nnrestapi-be-module .req-type-put .reqtype {
+    background: #fba12f;
+}
+.nnrestapi-be-module .req-type-patch .reqtype {
+    background: #4fe2c2;
+}
+.nnrestapi-be-module .req-type-delete .reqtype {
+    background: #f93f3e;
+}
+.nnrestapi-be-module .req-type-delete [data-target=".compose-body"], 
+.nnrestapi-be-module .req-type-delete [data-target=".compose-files"],
+.nnrestapi-be-module .req-type-get [data-target=".compose-body"], 
+.nnrestapi-be-module .req-type-get [data-target=".compose-files"] {
+    text-decoration: line-through !important;  
+    opacity: 0.6;  
+}
+.nnrestapi-be-module .req-type-delete .compose-body, 
+.nnrestapi-be-module .req-type-delete .compose-files,
+.nnrestapi-be-module .req-type-get .compose-body, 
+.nnrestapi-be-module .req-type-get .compose-files {
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.nnrestapi-be-module .compose.pump .req-type {
+    animation: pump-down 0.3s;
+}
+.nnrestapi-be-module .request-form.pump .reqtype {
+    animation: 0.3s pump-up 0.3s;
+}
+
+.nnrestapi-be-module .url {
+    position: relative;
+}
+
+.nnrestapi-be-module .progress-bar {
+    position: absolute;
+    z-index: 10;
+    pointer-events: none;
+    height: 4px;
+    bottom: 0;
+    left: 0;
+    display: none;
+    background: #cabf39;
+}
+
+.nnrestapi-be-module .loading .progress-bar {
+    display: block;
+}
+
+
+.nnrestapi-be-module .testbed .spinner {
+    display: none;
+    color: #fff;
+}
+
+.nnrestapi-be-module .loading .spinner {
+   display: block;
+}
+
+.nnrestapi-be-module .loading .result-panel {
+    opacity: 0.2;
+}
+
+.nnrestapi-be-module b, .nnrestapi-be-module strong {
+    font-weight: 600;
+}
+
+.nnrestapi-be-module .access-list {
+    list-style: none;
+    margin: 0;
+    padding: 2px 0 0 0;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.nnrestapi-be-module .access-list li {
+    padding: 0 15px 0 0;
+}
+.nnrestapi-be-module .access-list i {
+    margin-right: 5px;
+}
+
+.nnrestapi-be-module .table-sm td, 
+.nnrestapi-be-module .table-sm th {
+   padding: 0.3rem 0.7rem;
+}
+
+.nnrestapi-be-module .auth-form {
+    opacity: 0;
+    transition: 0.2s all;
+}
+
+.nnrestapi-be-module .logout .form-control {
+    background: #000;
+    border: 1px solid #000;
+    color: #fff;
+}
+
+.nnrestapi-be-module .feuser-loaded .auth-form {
+    opacity: 1;
+}
+.nnrestapi-be-module .auth-form .logout {
+    display: none;
+}
+.nnrestapi-be-module .feuser-exists .auth-form .logout {
+    display: block;
+}
+.nnrestapi-be-module .feuser-exists .auth-form .login {
+    display: none;
+}
+
+.nnrestapi-be-module .kickstarts h3 {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin: 0 0 0.25rem 0;
+}
+
+.nnrestapi-be-module .kickstart-packages .item {
+    border: 1px dotted #cee7e4;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.nnrestapi-be-module .kickstart-packages .item .text {
+    transition: ease-in 0.2s all;
+}
+
+.nnrestapi-be-module .kickstart-packages .item .info {
+    position: relative;
+}
+
+.nnrestapi-be-module .kickstart-packages .actions {
+    opacity: 0;
+    transition: ease-out 0.2s all;
+    transform: translateX(40px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.nnrestapi-be-module .kickstart-packages .item:hover .actions {
+    transform: translateX(0);
+    opacity: 1;
+}
+.nnrestapi-be-module .kickstart-packages .item:hover .text {
+    transform: translateX(-20px);
+    opacity: 0;
+}
+
+.nnrestapi-be-module .kickstart-packages .actions a,
+.nnrestapi-be-module .kickstart-packages .actions a:hover {
+    border-radius: 3px;
+    color: #fff;
+    background: #15b5a2;
+    transition: 0.2s all;
+}
+
+.nnrestapi-be-module .kickstart-packages .actions a:hover {
+    transform: scale(1.05);
+}
+
+.nnrestapi-be-module .kickstart-packages p {
+    margin: 0;
+}
+
+.nnrestapi-be-module .kickstart-packages .icon {
+    font-size: 1.6rem;
+    width: 70px;
+    height: 70px;
+    background-color: #cee7e4;
+    border: 1px solid #c3dfdc;
+    transition: 0.2s all;
+}
+.nnrestapi-be-module .kickstart-packages .icon,
+.nnrestapi-be-module .kickstart-packages .icon i {
+    color: #15b5a2;
+}
+
+.nnrestapi-be-module .kickstart-packages .icon i {
+    font-size: 1.5rem;
+}
+
+.nnrestapi-be-module .kickstart-packages a:hover .icon {
+    transform: scale(1.1);
+}
+
+.nnrestapi-be-module .kickstart-packages a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.nnrestapi-be-module .kickstart-packages .add-info {
+    pointer-events: none;
+}
+
+.nnrestapi-be-module .kickstart-packages .add-info .icon {
+    background: #eee;
+    border: none;
+    box-shadow: none;
+}
+
+.nnrestapi-be-module .kickstart-packages .add-info .icon i {
+    color: #bbb;
+}
+
+.nnrestapi-be-module .modal.fade.show {
+    opacity: 1;
+}
+
+@keyframes pump-up {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1); }
+}
+
+@keyframes pump-down {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.8); }
+    100% { transform: scale(1); }
+} 
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    2% { transform: scale(1.4) rotate(-5deg); color: #708faf; }
+    4% { transform: scale(1); color: #aaa; }
+    100% { transform: scale(1); }
+} 

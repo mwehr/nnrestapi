@@ -1,0 +1,207 @@
+# ---------------------------------------------------
+# Import the kickstarts
+
+@import 'EXT:nnrestapi/Configuration/TypoScript/kickstarts/*.setup.typoscript'
+
+# ------------------------------------------------
+# Plugin configuration 
+
+plugin.tx_nnrestapi {
+	view {
+		templateRootPaths {
+			0 = EXT:nnrestapi/Resources/Private/Templates/
+		}
+		partialRootPaths {
+			0 = EXT:nnrestapi/Resources/Private/Partials/
+		}
+		layoutRootPaths {
+			0 = EXT:nnrestapi/Resources/Private/Layouts/
+		}
+	}
+	persistence {
+		storagePid = 
+	}
+	features {
+		#skipDefaultArguments = 1
+		ignoreAllEnableFieldsInBe = 0
+		requireCHashArgumentForActionArguments = 1
+	}
+	mvc {
+		callDefaultActionIfActionCantBeResolved = 1
+	}
+
+	settings {
+
+		# The main controller to handle the request 
+		apiController = Nng\Nnrestapi\Controller\ApiController
+
+		# Problems with dates from frontend date-pickers being off by 1h? 
+		# Try `UTC` or `Europe/Berlin` here - or leave empty to use LocalConfiguration.SYS.phpTimeZone
+		timeZone = 
+
+		# central place to define groups. Use `@Api\Access("config[keyname]")` in the methods comment
+		accessGroups {
+			# example1 = fe_users[3,2]
+			# example2 = fe_users[david]
+		}
+
+		# which suffixes are allowed for file-upload (defaults to the ones defined in EXT:nnhelpers)
+		# can also be set / overridden inside of individual fileUploads-configurations
+		allowedFileUploadSuffix =
+
+		# Default upload-paths for fileuploads
+		fileUploads {
+
+			// Use this key in your endpoint annotation `@Api\Upload("config[keyname]")`
+			default {
+
+				// if nothing else fits, use fileadmin/api/
+				defaultStoragePath = 1:/api/
+
+				// Optional: Use a custom class to return configuration
+				// pathFinderClass = Nng\Nnrestapi\Helper\UploadPathHelper::getUserUidPath
+
+				// target-path for file, file-0, file-1, ...
+				file = 1:/api/files/
+
+				// Optional: Post-Process files after upload
+				/*
+				postProcess {
+					10 {
+						userFunc = Nng\Nnrestapi\Helper\UploadPostProcessHelper::randomizeFilename
+					}
+					20 {
+						userFunc = Nng\Nnrestapi\Helper\UploadPostProcessHelper::imageMaxWidth
+						maxWidth = 3000
+						filetype = jpg
+						quality = 70
+					}
+				}
+				*/
+			}		
+		}
+
+		# (!!!) EXPERIMENTAL, NOT IN USE. Default settings for encrypting file-uploads
+		fileUploadEncrypt {
+
+			// Use this key in your endpoint annotation `@Api\Upload\Encrypt("config[keyname]")`
+			default {
+				// Class with methods for encrypting / decrypting files
+				encryptionClass = Nng\Nnrestapi\Helper\UploadEncryptHelper
+
+				// specials configuration for the default encrypter
+				fileEncryptionBlocks = 255
+				cipher = AES-128-CBC
+			}
+		}
+		
+		# Settings for FileStorage (can be selected in the FileStorage)
+		sysFileStoragePresets {
+			beUsersOnly {
+				label = Only backend-users can access files
+				className = Nng\Nnrestapi\Hooks\FileDumpHook
+				accessGroups = be_users
+			}
+			feUsersOnly {
+				label = Only frontend- and backend-users can access files
+				className = Nng\Nnrestapi\Hooks\FileDumpHook
+				accessGroups = fe_users, be_users
+			}
+		}
+
+		# Default values for new entries
+		insertDefaultValues {
+			/*
+			Nng\Nnrestapi\Domain\Model\ApiTest {
+				pid = 6
+				categories {
+					0 = 1
+					1 = 2
+				}
+			}
+			*/
+		}
+
+		# Fields to remove from Model when converting to array
+		globalDistillers {
+			TYPO3\CMS\Extbase\Domain\Model\Category {
+				exclude = parent
+			}
+			/*
+			Nng\Nnrestapi\Domain\Model\ApiTest {
+				flattenFileReferences = 1
+				include = uid,pid,title
+			}
+			*/
+			/*
+			TYPO3\CMS\Extbase\Domain\Model\FileReference {
+				exclude = uidLocal, crop, publicUrl, type
+			}
+			*/
+		}
+
+		# Language / localization settings
+		localization {
+			
+			# Whether to enable the localization. Disabled by default because this is the primary use-case.
+			enabled = 0
+
+			# Which header(s) in the request contains the information about requested language (might be "X-Locale")
+			languageHeader = x-locale, accept-language
+		}
+
+		# Automatically merge JSON request-body with Model? Can also be disabled per method with `@Api\AutoMerge(FALSE)`
+		autoMerge {
+			enabled = 1
+		}
+
+		# Settings for the response
+		response {
+			# headers to send with response. Merged with default headers (see \Nng\Nnrestapi\Utilities\Header::addControls)
+			headers {
+				# Restrict CORS to certain domains. Please set for higher security!
+				Access-Control-Allow-Origin = *
+			}
+		}
+
+		# Settings related to security
+		security {
+			defaults {
+				/*
+				10 = \Nng\Nnrestapi\Utilities\Security->checkInjections
+				20 = \Nng\Nnrestapi\Utilities\Security->checkLocked
+				*/
+			}
+		}
+	}
+}
+
+plugin.tx_nnrestapi_api < plugin.tx_nnrestapi
+
+
+# ---------------------------------------------------
+# Backend module
+
+module.tx_nnrestapi {
+	view {
+		templateRootPaths {
+			10 = EXT:nnrestapi/Resources/Private/Backend/Templates/
+		}
+		layoutRootPaths {
+			0 = EXT:backend/Resources/Private/Layouts/
+		}
+		partialRootPaths {
+			10 = EXT:nnrestapi/Resources/Private/Backend/Partials/
+		}
+	}
+	settings < plugin.tx_nnrestapi.settings
+}
+
+# ---------------------------------------------------
+# Create absolute URLs in RTE-texts
+
+lib.parseFunc_nnrestapi < lib.parseFunc_RTE
+lib.parseFunc_nnrestapi.tags {
+	link.typolink.forceAbsoluteUrl = 1
+	a.typolink.forceAbsoluteUrl = 1
+}

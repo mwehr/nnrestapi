@@ -1,0 +1,28 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Nng\Nnrestapi\Middleware\:
+    resource: '../Classes/Middleware/*'
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  Nng\Nnrestapi\:
+    resource: '../Classes/*'
+    exclude: 
+      - '../Classes/Domain/Model/*'
+      - '../Classes/Utilities/nnrest.php'
+
+  Nng\Nnrestapi\Resource\EventListener\ModifyFileDumpEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'nng/nnrestapi/modify-file-dump'
+
+  Nng\Nnrestapi\Controller\FileDumpController:
+    public: true
+
+  Nng\Nnrestapi\Controller\ModController:
+    tags: ['backend.controller']
