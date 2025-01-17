@@ -19,7 +19,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * FileDumpController
  * 
  */
-class FileDumpController extends CoreFileDumpController
+readonly class FileDumpController extends CoreFileDumpController
 {	
 	protected ResourceFactory $resourceFactory;
     protected EventDispatcherInterface $eventDispatcher;
