@@ -19,20 +19,20 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  * ```
  */
 class ApiViewHelper extends AbstractViewHelper {
-	
-	public function initializeArguments() {
-		parent::initializeArguments();
+
+    public function initializeArguments() {
+        parent::initializeArguments();
         $this->registerArgument('ext', 'string', 'slug für Endpoint, definiert per \nn\rest::Endpoint()->register()', false);
         $this->registerArgument('controller', 'string', 'Controller', false, 'index');
         $this->registerArgument('action', 'string', 'Action', false, 'index');
         $this->registerArgument('uid', 'string', 'uid', false);
-        $this->registerArgument('param1', null, 'Parameter 1', false, '');
-        $this->registerArgument('param2', null, 'Parameter 2', false, '');
-        $this->registerArgument('param3', null, 'Parameter 3', false, '');
-        $this->registerArgument('additionalParams', null, 'additionalParams', false, []);
+        $this->registerArgument('param1', 'mixed', 'Parameter 1', false, '');
+        $this->registerArgument('param2', 'mixed', 'Parameter 2', false, '');
+        $this->registerArgument('param3', 'mixed', 'Parameter 3', false, '');
+        $this->registerArgument('additionalParams', 'mixed', 'additionalParams', false, []);
         $this->registerArgument('type', 'string', 'PageType', false, '');
         $this->registerArgument('absolute', 'boolean', 'Return absolute URL', false, false);
-   }
+    }
 
 	public static function renderStatic( array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext ) {
 
