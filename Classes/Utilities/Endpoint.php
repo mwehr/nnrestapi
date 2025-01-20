@@ -2,7 +2,7 @@
 
 namespace Nng\Nnrestapi\Utilities;
 
-use Composer\Autoload\ClassMapGenerator;
+use Composer\ClassMapGenerator\ClassMapGenerator;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Core\ClassLoadingInformation;
 

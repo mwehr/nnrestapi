@@ -3,7 +3,7 @@
 namespace Nng\Nnrestapi\Utilities;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use Composer\Autoload\ClassMapGenerator;
+use Composer\ClassMapGenerator\ClassMapGenerator;
 
 /**
  * Helper for reading / parsing annotations
