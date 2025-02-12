@@ -9,7 +9,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 /**
  * 
  */
-class QueryFactory extends BaseQueryFactory {
+readonly class QueryFactory extends BaseQueryFactory {
 
 	/**
 	 * Creates a query object working on the given class name
