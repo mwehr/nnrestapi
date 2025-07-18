@@ -34,7 +34,7 @@ class Header extends \Nng\Nnhelpers\Singleton
 			'Pragma' => 'no-cache',
 		];
 
-		$headersFromSetup = \nn\rest::Settings()->get()['response']['headers'];
+        $headersFromSetup = isset(\nn\rest::Settings()->get()['response']) ? \nn\rest::Settings()->get()['response']['headers'] : [];
 
 		// the `HTTP_REFERER` without full path, e.g. `https://www.mydomain.com` or `https://localhost:8090`
 		$referer = \nn\rest::Access()->getRefererDomain();

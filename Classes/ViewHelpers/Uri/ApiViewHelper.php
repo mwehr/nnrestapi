@@ -26,10 +26,10 @@ class ApiViewHelper extends AbstractViewHelper {
         $this->registerArgument('controller', 'string', 'Controller', false, 'index');
         $this->registerArgument('action', 'string', 'Action', false, 'index');
         $this->registerArgument('uid', 'string', 'uid', false);
-        $this->registerArgument('param1', 'mixed', 'Parameter 1', false, '');
-        $this->registerArgument('param2', 'mixed', 'Parameter 2', false, '');
-        $this->registerArgument('param3', 'mixed', 'Parameter 3', false, '');
-        $this->registerArgument('additionalParams', 'mixed', 'additionalParams', false, []);
+        $this->registerArgument('param1', '', 'Parameter 1', false, '');
+        $this->registerArgument('param2', '', 'Parameter 2', false, '');
+        $this->registerArgument('param3', '', 'Parameter 3', false, '');
+        $this->registerArgument('additionalParams', '', 'additionalParams', false, []);
         $this->registerArgument('type', 'string', 'PageType', false, '');
         $this->registerArgument('absolute', 'boolean', 'Return absolute URL', false, false);
     }

@@ -201,11 +201,12 @@ class ApiController extends AbstractApiController
 			$expectedType = $varDefinition['type'] ?? false;
 
 			if ($expectedType == 'object' && $modelName) {
-				
+
+                $model = null;
 				// @todo: parse ObjectStorages and Arrays in future versions
-				
+
 				// was a uid passed? Then get existing model from database
-				if ($uid = $modelData['uid'] ?? $reqVars['uid'] ?? false) {
+                if ($uid = $modelData['uid'] ?? $reqVars[$varName] ?? false) {
 
 					// uid was passed. Retrieve Model (without the need of instanciating the repository)
 					$existingModel = \nn\t3::Db()->get( $uid, $modelName );
