@@ -22,22 +22,22 @@ return [
 		// Resolve the request, forward to ApiController
 		'nnrestapi/cachehashfix' => [
 			'target' => \Nng\Nnrestapi\Middleware\CacheHashFixer::class,
-			'before' => [
-				'typo3/cms-frontend/page-resolver',
-			],
 			'after' => [
 				'typo3/cms-frontend/site',
 			],
+			'before' => [
+				'typo3/cms-frontend/page-resolver',
+			],
 		],
-
+		
 		// Resolve the request, forward to ApiController
 		'nnrestapi/resolver' => [
 			'target' => \Nng\Nnrestapi\Middleware\PageResolver::class,
-			'before' => [
-				$pageResolverCallpoint['before'],
-			],
 			'after' => [
 				$pageResolverCallpoint['after'],
+			],
+			'before' => [
+				$pageResolverCallpoint['before'],
 			],
 		]
 	]

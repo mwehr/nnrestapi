@@ -24,7 +24,11 @@ class Index extends AbstractApi
 	 */
 	public function getIndexAction()
 	{
-		$result = ['message'=>'Successfully called /api. This is mapped to the public endpoint Index->getIndexAction(). Use /api/{controller}/{action} syntax to connect to an endpoint.'];
+		$settings = \nn\t3::Settings()->getSettings('nnrestapi');
+		$result = [
+			'message' => 'Successfully called /api. This is mapped to the public endpoint Index->getIndexAction(). Use /api/{controller}/{action} syntax to connect to an endpoint.',
+			'settings' => $settings ? 'TypoScript setup was successfully loaded' : 'ERROR: TypoScript could not be loaded.',
+		];
 		return $result;
 	}
 	
@@ -40,6 +44,7 @@ class Index extends AbstractApi
 	 * https://www.mysite.com/api/
 	 * ```
 	 * 
+	 * @Api\Example("{'test':'works!'}")
 	 * @Api\Access("be_users")
 	 * 
 	 * @return array
@@ -62,7 +67,7 @@ class Index extends AbstractApi
 	 * ```
 	 * https://www.mysite.com/api/
 	 * ```
-	 * 
+	 * @Api\Example("{'test':'works!'}")
 	 * @Api\Access("be_users")
 	 * 
 	 * @return array
@@ -84,6 +89,7 @@ class Index extends AbstractApi
 	 * ```
 	 * https://www.mysite.com/api/
 	 * ```
+	 * 
 	 * @Api\Access("be_users")
 	 * 
 	 * @return array

@@ -207,12 +207,37 @@ class Settings extends \Nng\Nnhelpers\Singleton {
 	 * 
 	 * ```
 	 * \nn\rest::Settings()->setIgnoreEnableFields( true );
+	 * \nn\rest::Settings()->setIgnoreEnableFields( ['tt_content', 'my_table'] );
+	 * \nn\rest::Settings()->setIgnoreEnableFields( '\Nng\Apitest\Domain\Model\Entry' );
 	 * ```
-	 * @param   array  $querySettings  Query settings
+	 * @param array|string|bool  $ignoreEnableFields
 	 * @return  self
 	 */
-	public function setIgnoreEnableFields( $ignoreEnableFields = false ) {
-		$this->querySettings['ignoreEnableFields'] = $ignoreEnableFields;
+	public function setIgnoreEnableFields( $ignoreEnableFields = false ) 
+	{
+		if ($ignoreEnableFields === false) {
+			unset($this->querySettings['ignoreEnableFields']);
+			return $this;
+		}
+		if ($ignoreEnableFields === true) {
+			$this->querySettings['ignoreEnableFields'] = ['*'];
+			return $this;
+		}
+
+		if (!is_array($ignoreEnableFields)) {
+			$ignoreEnableFields = [$ignoreEnableFields];
+		}
+
+		$ignoreEnableFields = array_map(function($value) {
+			if (strpos($value, '\\') !== false) {
+				return \nn\t3::Db()->getTableNameForModel($value);
+			}
+			return $value;
+		}, $ignoreEnableFields);
+
+		$existing = $this->querySettings['ignoreEnableFields'] ?? [];
+		$this->querySettings['ignoreEnableFields'] = array_unique(array_merge($existing, $ignoreEnableFields));
+
 		return $this;
 	}
 

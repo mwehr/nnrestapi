@@ -21,18 +21,12 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 readonly class FileDumpController extends CoreFileDumpController
 {	
-	protected ResourceFactory $resourceFactory;
-    protected EventDispatcherInterface $eventDispatcher;
-    protected ResponseFactoryInterface $responseFactory;
-
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ResourceFactory $resourceFactory,
-        ResponseFactoryInterface $responseFactory
+        protected EventDispatcherInterface $eventDispatcher,
+        protected ResourceFactory $resourceFactory,
+        protected ResponseFactoryInterface $responseFactory
     ) {
-        $this->eventDispatcher = $eventDispatcher;
-        $this->resourceFactory = $resourceFactory;
-        $this->responseFactory = $responseFactory;
+        parent::__construct($eventDispatcher, $resourceFactory, $responseFactory);
     }
 
 	/**
@@ -83,6 +77,39 @@ readonly class FileDumpController extends CoreFileDumpController
 		$parameters['eID'] = 'dumpEncFile';
 		$parameters['cnf'] = $queryParams['cnf'] ?? '';
 		return $parameters;
+	}
+
+	/**
+	 * Validate the token
+	 * 
+	 * @param array $parameters
+	 * @param ServerRequestInterface $request
+	 * @return bool
+	 */
+	protected function isTokenValid(array $parameters, ServerRequestInterface $request): bool
+	{
+		$queryParams = $request->getQueryParams();
+		$providedToken = $queryParams['token'] ?? '';
+		$expectedToken = $this->getToken($parameters);
+		return hash_equals($expectedToken, $providedToken);
+	}
+
+	/**
+	 * Create file object by parameters
+	 * 
+	 * @param array $parameters
+	 * @return ResourceInterface|null
+	 */
+	protected function createFileObjectByParameters(array $parameters): ?ResourceInterface
+	{
+		try {
+			if (!isset($parameters['f']) || !$parameters['f']) {
+				return null;
+			}
+			return $this->resourceFactory->getFileObject($parameters['f']);
+		} catch (\Exception $e) {
+			return null;
+		}
 	}
 
 	/**

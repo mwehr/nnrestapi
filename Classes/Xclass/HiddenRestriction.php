@@ -9,16 +9,17 @@ use TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder;
 use TYPO3\CMS\Core\Http\ApplicationType;
 
 /**
+ * XCLASSes \TYPO3\CMS\Core\Database\Query\Restriction\HiddenRestriction
+ * Allows retrieving hidden records in a frontend context using the
+ * `@Api\IncludeHidden("tablename")` annotation.
+ * 
+ * @see: `\Nng\Nnrestapi\Classes\Annotations\IncludeHidden.php` for more details
+ * @see: https://bit.ly/3RMMZsk
  * 
  */
 class HiddenRestriction extends BaseHiddenRestriction 
 {
 	/**
-	 * XCLASSes \TYPO3\CMS\Core\Database\Query\Restriction\HiddenRestriction
-	 * Allows retrieving hidden records in a frontend context using the
-	 * `@Api\IncludeHidden` annotation.
-	 * 
-	 * see: https://bit.ly/3RMMZsk
 	 * 
      * @param array $queriedTables
      * @param ExpressionBuilder $expressionBuilder
@@ -26,12 +27,28 @@ class HiddenRestriction extends BaseHiddenRestriction
 	 */
 	public function buildExpression(array $queriedTables, ExpressionBuilder $expressionBuilder): CompositeExpression
 	{
-		if (\nn\rest::Environment()->isFrontend()) {
-			if (\nn\rest::Settings()->getQuerySettings('ignoreEnableFields')) {
-				return $expressionBuilder->andX([]);
+		$isFrontend = \nn\rest::Environment()->isFrontend();
+		$ignoreEnableFields = \nn\rest::Settings()->getQuerySettings('ignoreEnableFields') ?: [];
+		$applyToAllTables = $ignoreEnableFields && in_array('*', $ignoreEnableFields);
+
+		$constraints = [];
+        foreach ($queriedTables as $tableAlias => $tableName) {
+
+			// context MUST be frontend - and list of tables either contains `*` or the table is in the list
+			if ($isFrontend && ($applyToAllTables || in_array($tableAlias, $ignoreEnableFields))) {
+				continue;
 			}
-		}
-		return parent::buildExpression( $queriedTables, $expressionBuilder );
+			
+			// otherwise apply the default hidden restriction
+            $hiddenFieldName = $GLOBALS['TCA'][$tableName]['ctrl']['enablecolumns']['disabled'] ?? null;
+            if (!empty($hiddenFieldName)) {
+                $constraints[] = $expressionBuilder->eq(
+                    $tableAlias . '.' . $hiddenFieldName,
+                    0
+                );
+            }
+        }
+        return $expressionBuilder->and(...$constraints);
 	}
 
 }

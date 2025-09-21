@@ -6,7 +6,7 @@ call_user_func(
 	{
 
 		// Utilities für `\nn\rest::Beispiel()->method()` registrieren
-		$extPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extKey);		
+		$extPath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('EXT:' . $extKey . '/');		
 		require_once($extPath . 'Classes/Utilities/nnrest.php');
 
 		// Globalen Namespace {rest:...} registrieren für ViewHelper
@@ -38,9 +38,8 @@ call_user_func(
 		// TYPO3 bootstrap BEFORE processing the request, this script will be executed prior to anything else
 		\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Nng\Nnrestapi\Middleware\RequestParser::class)->handler();
 		
-		//$GLOBALS['TYPO3_CONF_VARS']['SYS']['routing']['aspects']['NnrestapiPersistedAliasMapper'] = \Nng\Nnrestapi\Routing\NnrestapiPersistedAliasMapper::class;
-
 		// Needed to override HiddenRestrictions when retrieving hidden records in Frontend Context
+		// @see `Nng\Nnrestapi\Annotations\IncludeHidden.php` for details
 		$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][\TYPO3\CMS\Extbase\Persistence\Generic\QueryFactory::class] = [
 			'className' => \Nng\Nnrestapi\Xclass\QueryFactory::class
 		];

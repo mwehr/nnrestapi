@@ -1,12 +1,13 @@
 {
   "name": "nng/apitest",
+  "version": "1.0.0",
   "type": "typo3-cms-extension",
   "description": "Example Rest-Api Extension for EXT:nnrestapi",
   "authors": [],
   "require": {
-    "typo3/cms-core": "^12.0",
-    "nng/nnrestapi": "^2.0",
-    "nng/nnhelpers": "^2.0"
+    "typo3/cms-core": "^13.0",
+    "nng/nnrestapi": "^13.0 || dev-13*",
+    "nng/nnhelpers": "^13.0 || dev-13*"
   },
     "autoload": {
     "psr-4": {
@@ -20,7 +21,7 @@
   },
   "extra": {
     "typo3/cms": {
-       "extension-key": "apitest"
+      "extension-key": "apitest"
     }
   }
 }

@@ -80,7 +80,9 @@ class Environment extends \Nng\Nnhelpers\Singleton
 	public function getLanguages( $key = 'languageId' ) 
 	{
 		$languages = \nn\t3::Settings()->getSiteConfig()['languages'] ?? [];
-		return array_combine( array_column($languages, $key), array_values($languages) );
+		array_walk($languages, fn(&$language) => $language['iso-639-1'] = $language['iso-639-1'] ?? substr($language['locale'], 0, 2));
+		$result = array_combine( array_column($languages, $key), array_values($languages) );
+		return $result;
 	}
 
 	/**

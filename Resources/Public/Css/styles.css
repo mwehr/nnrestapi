@@ -158,8 +158,8 @@
     margin-left: -1.5em;
 }
 
-.nnrestapi-be-module .hide-nnrestapi .ext-nnrestapi {
-    display: none;
+.hide-nnrestapi .nnrestapi-be-module .ext-nnrestapi {
+    display: none !important;
 }
 
 .nnrestapi-be-module .form-control.search {

@@ -8,21 +8,23 @@ use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Backend\Attribute\AsController;
 
 /**
  * Backend Module
  * 
  */
-#[AsController]
-class ModController extends ActionController
+class ModController extends ActionController 
 {
+	protected ModuleTemplateFactory $moduleTemplateFactory;
+	protected PageRenderer $pageRenderer;
 	protected $moduleTemplate;
 
 	public function __construct(
-        protected readonly ModuleTemplateFactory $moduleTemplateFactory,
-        protected readonly PageRenderer $pageRenderer,
+        ModuleTemplateFactory $moduleTemplateFactory,
+        PageRenderer $pageRenderer,
     ) {
+        $this->moduleTemplateFactory = $moduleTemplateFactory;
+        $this->pageRenderer = $pageRenderer;
     }
 
 	/**
@@ -120,7 +122,7 @@ class ModController extends ActionController
 		]);
 
 		$this->moduleTemplate->assignMultiple(['content'=>$this->view->render()]);
-        return $this->moduleTemplate->renderResponse( 'Mod/Index' );
+		return $this->moduleTemplate->renderResponse( 'Index' );
 	}
 
 	/**

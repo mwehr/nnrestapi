@@ -11,8 +11,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 abstract class AbstractApi {
 
-    public ?array $feUser = null;
-
 	/**
 	 * @var int
 	 */
@@ -188,8 +186,8 @@ abstract class AbstractApi {
 
 		// @Api\Access("fe_users") and @Api\Access("api_users[name]") checks for certain fe_users
 		$feUser = \nn\t3::FrontendUser()->get();
-
-        if ($feUser && isset($endpoint['access']) && isset($endpoint['access']['fe_users'])) {
+		
+		if ($feUser && $endpoint['access']['fe_users'] ?? false) {
 			if ($endpoint['access']['fe_users']['*'] ?? false) {
 				return true;
 			}

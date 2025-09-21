@@ -44,8 +44,21 @@ class ApiController extends AbstractApiController
 		$showHiddenFromAnnotation 	= $endpoint['includeHidden'] ?? false;		// via `@Api\IncludeHidden` annotation?
 		$showHiddenFromFeUser 		= $request->isAdmin();						// via "admin"-checkbox set in fe-user?
 
-		if ($showHiddenFromAnnotation || $showHiddenFromFeUser) {
-			\nn\rest::Settings()->setIgnoreEnableFields( true );
+		// if fe-user is admin allow all hidden records
+		if ($showHiddenFromFeUser) {
+			$showHiddenFromAnnotation = ['*'];
+		}
+
+		if ($showHiddenFromAnnotation) {
+			$tableNames = \nn\rest::Settings()
+				->setIgnoreEnableFields( $showHiddenFromAnnotation )
+				->getQuerySettings('ignoreEnableFields');
+			
+			// tables that need to be handles via `aspect.visibility`
+			$aspectTables = ['tt_content', 'pages', 'sys_file_reference', '*'];
+			if (array_intersect($aspectTables, $tableNames)) {
+				\nn\t3::Tsfe()->includeHiddenRecords(true, true);
+			}
 		}
 		
 		// create an instance of the endpoint `Nng\Nnrestapi\Api\Test`
@@ -201,12 +214,11 @@ class ApiController extends AbstractApiController
 			$expectedType = $varDefinition['type'] ?? false;
 
 			if ($expectedType == 'object' && $modelName) {
-
-                $model = null;
+				
 				// @todo: parse ObjectStorages and Arrays in future versions
-
+				
 				// was a uid passed? Then get existing model from database
-                if ($uid = $modelData['uid'] ?? $reqVars[$varName] ?? false) {
+				if ($uid = $modelData['uid'] ?? $reqVars['uid'] ?? false) {
 
 					// uid was passed. Retrieve Model (without the need of instanciating the repository)
 					$existingModel = \nn\t3::Db()->get( $uid, $modelName );

@@ -26,87 +26,88 @@ namespace Nng\Nnrestapi\Domain\Model;
 abstract class AbstractRestApiModel extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
 	/**
-	 * @var int
+	 * @var ?int
 	 */
-	protected $pid;
+	protected ?int $pid = null;
 
 	/**
-	 * @var int
+	 * @var ?int
 	 */
-	protected $tstamp;
+	protected ?int $tstamp = null;
 
 	/**
-	 * @var int
+	 * @var ?int
 	 */
-	protected $crdate;
+	protected ?int $crdate = null;
 
 	/**
-	 * @return  int
+	 * @return  ?int
 	 */
 	public function getPid(): ?int {
 		return $this->pid;
 	}
 
 	/**
-	 * @param   int  $pid  
+	 * @param   ?int  $pid  
 	 * @return  self
 	 */
-	public function setPid(int $pid):void {
+	public function setPid(?int $pid):void {
 		$this->pid = $pid;
 	}
 
 	/**
 	 * Only accessible if also defined in TCA! (see above)
-	 * @return  int
+	 * @return  ?int
 	 */
-	public function getTstamp() {
+	public function getTstamp(): ?int {
 		return $this->tstamp;
 	}
 
 	/**
-	 * @param   int  $tstamp  
+	 * @param   ?int  $tstamp  
 	 * @return  self
 	 */
-	public function setTstamp($tstamp) {
+	public function setTstamp(?int $tstamp): self {
 		$this->tstamp = $tstamp;
 		return $this;
 	}
 
 	/**
 	 * Only accessible if also defined in TCA! (see above)
-	 * @return  int
+	 * @return  ?int
 	 */
-	public function getCrdate() {
+	public function getCrdate(): ?int {
 		return $this->crdate;
 	}
 
 	/**
-	 * @param   int  $crdate  
+	 * @param   ?int  $crdate  
 	 * @return  self
 	 */
-	public function setCrdate($crdate) {
+	public function setCrdate(?int $crdate): self {
 		$this->crdate = $crdate;
 		return $this;
 	}
 
 	/**
-	 * @return  int
+	 * @return  ?int
 	 */
-	public function getL10nUid() {
+	public function getL10nUid(): ?int {
 		return $this->_localizedUid;
 	}
 
 	/**
-	 * @return  int
+	 * @return  ?int
 	 */
-	public function getSysLanguageUid() {
+	public function getSysLanguageUid(): ?int {
 		return $this->_languageUid;
 	}
 	
 	/**
+	 * @param   mixed  $sysLanguageUid
 	 * @return  self
 	 */
-	public function setSysLanguageUid( $sysLanguageUid = '' ) {
+	public function setSysLanguageUid(mixed $sysLanguageUid = ''): self {
 		$this->_setProperty( '_languageUid', $sysLanguageUid );
 		return $this;
 	}

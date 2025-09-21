@@ -2,9 +2,9 @@
 
 namespace Nng\Nnrestapi\Utilities;
 
-use Composer\ClassMapGenerator\ClassMapGenerator;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Core\ClassLoadingInformation;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Utility for registering and evaluation Endpoints
@@ -200,7 +200,7 @@ class Endpoint extends \Nng\Nnhelpers\Singleton {
 			array_unshift( $paramKeys, 'ext' );
 			array_push( $paramValues, '' );
 		}
-		
+
 		$params = array_combine( $paramKeys, $paramValues );
 		
 		// Is the `controller` oder `action` an `intval`? Then use it as `uid`.
@@ -597,9 +597,9 @@ class Endpoint extends \Nng\Nnhelpers\Singleton {
 		// Determine paths to PHP files that have Api endpoints
 		$classesToParse = [];
 		foreach ($pathsToParse as $path) {
-			$mappedClasses = array_flip(ClassMapGenerator::createMap( $path ));
+			$mappedClasses = $this->createClassMap($path);
 			
-			$found = array_filter($mappedClasses, function ($className, $path) use ($namespaces) {
+			$found = array_filter($mappedClasses, function ($className, $filePath) use ($namespaces) {
 				foreach ($namespaces as $name) {
 					if (strpos($className, $name) !== false) return true;
 				}
@@ -611,6 +611,77 @@ class Endpoint extends \Nng\Nnhelpers\Singleton {
 		$classesToParse = array_unique($classesToParse);
 
 		return $classesToParse;
+	}
+
+	/**
+	 * Create a class map by scanning PHP files in a directory
+	 * Alternative to Composer\ClassMapGenerator\ClassMapGenerator for TYPO3 13 compatibility
+	 * 
+	 * @param string $path Directory path to scan
+	 * @return array Array mapping class names to file paths
+	 */
+	private function createClassMap($path) {
+		$classMap = [];
+		
+		if (!is_dir($path)) {
+			return $classMap;
+		}
+		
+		$iterator = new \RecursiveIteratorIterator(
+			new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS)
+		);
+		
+		foreach ($iterator as $file) {
+			if ($file->getExtension() === 'php') {
+				$filePath = $file->getRealPath();
+				$classes = $this->extractClassesFromFile($filePath);
+				
+				foreach ($classes as $className) {
+					$classMap[$className] = $filePath;
+				}
+			}
+		}
+		
+		return array_flip($classMap); // Return in the same format as the original ClassMapGenerator
+	}
+
+	/**
+	 * Extract class names from a PHP file
+	 * 
+	 * @param string $filePath Path to the PHP file
+	 * @return array Array of class names found in the file
+	 */
+	private function extractClassesFromFile($filePath) {
+		$classes = [];
+		$content = file_get_contents($filePath);
+		
+		if ($content === false) {
+			return $classes;
+		}
+		
+		// Extract namespace
+		$namespace = '';
+		if (preg_match('/namespace\s+([^;]+);/', $content, $matches)) {
+			$namespace = trim($matches[1]) . '\\';
+		}
+		
+		// Extract class, interface, trait, and enum declarations
+		$patterns = [
+			'/class\s+([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)/i',
+			'/interface\s+([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)/i',
+			'/trait\s+([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)/i',
+			'/enum\s+([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)/i'
+		];
+		
+		foreach ($patterns as $pattern) {
+			if (preg_match_all($pattern, $content, $matches)) {
+				foreach ($matches[1] as $className) {
+					$classes[] = $namespace . $className;
+				}
+			}
+		}
+		
+		return $classes;
 	}
 	
 }

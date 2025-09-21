@@ -25,7 +25,7 @@
 			'searchFields' => '',
             'tstamp' => 'tstamp',
             'crdate' => 'crdate',
-            'dividers2tabs' => TRUE,    
+    
             'iconfile' => 'EXT:apitest/Resources/Public/Icons/Extension.svg',
             'languageField' => 'sys_language_uid',
             'transOrigPointerField' => 'l10n_parent',
@@ -48,7 +48,7 @@
                     sys_language_uid,l10n_parent,l10n_diffsource,
                     ' . join(',', array_keys($fields)) . ',
                 --div--;Access,
-				    --palette--;;5,
+                    --palette--;;5,
                 '],
 		],
 

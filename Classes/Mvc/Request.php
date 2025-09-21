@@ -16,7 +16,7 @@ class Request {
      * @var string
      */
     protected $rawBody;
-   
+
     /**
      * @var array
      */
